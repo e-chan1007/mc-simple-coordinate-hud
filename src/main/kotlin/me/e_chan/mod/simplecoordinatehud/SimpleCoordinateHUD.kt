@@ -1,70 +1,38 @@
 package me.e_chan.mod.simplecoordinatehud
 
-import net.fabricmc.api.ModInitializer
+import me.shedaniel.autoconfig.AutoConfig
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
+import net.fabricmc.api.ClientModInitializer
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.minecraft.client.MinecraftClient
-import net.minecraft.client.gui.DrawContext
-import net.minecraft.client.resource.language.I18n
-import net.minecraft.registry.RegistryKeys
-import net.minecraft.text.Text
-import net.minecraft.util.hit.BlockHitResult
+import net.minecraft.client.option.KeyBinding
+import net.minecraft.client.util.InputUtil
+import org.lwjgl.glfw.GLFW
 import org.slf4j.LoggerFactory
 
-object SimpleCoordinateHUD : ModInitializer {
-    private val logger = LoggerFactory.getLogger("simplecoordinatehud")
 
-	override fun onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-		logger.info("Hello Fabric world!")
+object SimpleCoordinateHUD : ClientModInitializer {
+    private val client: MinecraftClient by lazy { MinecraftClient.getInstance() }
+    internal val CONFIG: ModConfig by lazy { AutoConfig.getConfigHolder(ModConfig::class.java).getConfig() }
+    internal val LOGGER = LoggerFactory.getLogger(SimpleCoordinateHUD::class.java)
+    private lateinit var configKeyBinding: KeyBinding
 
-        HudRenderCallback.EVENT.register(HudRenderCallback { context: DrawContext, tickDelta: Float ->
-            val client = MinecraftClient.getInstance()
-            if (client.debugHud.shouldShowDebugHud()) return@HudRenderCallback
-            val player = client.player ?: return@HudRenderCallback
+    override fun onInitializeClient() {
+        AutoConfig.register(ModConfig::class.java, { def, cls -> Toml4jConfigSerializer(def, cls) })
 
-            var yOffset = 5
+        configKeyBinding = KeyBindingHelper.registerKeyBinding(KeyBinding("key.simplecoordinatehud.config", InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_SEMICOLON, "category.simplecoordinatehud"))
 
-            // 座標
-            val posText = "XYZ: ${player.x.toInt()}, ${player.y.toInt()}, ${player.z.toInt()}"
-            context.drawText(client.textRenderer, posText, 5, yOffset, 0xFFFFFFFF.toInt(), true)
-
-            yOffset += 12
-
-            // 方角
-            context.drawText(client.textRenderer, "Facing: ${getFacingWithAxis(player.yaw)}", 5, yOffset, 0xFFFFFFFF.toInt(), true)
-            yOffset += 12
-
-            // 見ているブロック
-            val target = client.crosshairTarget
-            if (target is BlockHitResult) {
-                val bp = target.blockPos
-                val blockState = client.world?.getBlockState(bp)
-                blockState?.isAir?.let {
-                    if (!it) {
-                        context.drawText(
-                            client.textRenderer,
-                            "Block: ${bp.x}, ${bp.y}, ${bp.z} (${I18n.translate(blockState.block.translationKey)})",
-                            5,
-                            yOffset,
-                            0xFFFFFFFF.toInt(),
-                            true
-                        )
-                    }
-                }
+        ClientTickEvents.END_CLIENT_TICK.register(ClientTickEvents.EndTick { client: MinecraftClient ->
+            if (configKeyBinding.wasPressed()) {
+                val configScreen = AutoConfig.getConfigScreen(ModConfig::class.java, client.currentScreen).get()
+                client.setScreen(configScreen)
             }
-
         })
-	}
 
-    private fun getFacingWithAxis(yaw: Float): String {
-        val normalized = (yaw % 360 + 360 + 45) % 360
-        return when {
-            normalized < 90 -> "South (Z+)"
-            normalized < 180 -> "West (X-)"
-            normalized < 270 -> "North (Z-)"
-            else -> "East (X+)"
-        }
-    }
+        HudRenderCallback.EVENT.register(HUDRender(client))
+
+	}
 }
