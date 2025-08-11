@@ -5,6 +5,7 @@ plugins {
 	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id "org.jetbrains.kotlin.jvm" version "2.2.0"
+    id "com.gradleup.shadow" version "9.0.1"
 }
 
 version = project.mod_version
@@ -36,11 +37,11 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
 
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
-    modApi "com.github.MatrixCreations:MatrixColorAPI:${project.matrix_color_api_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    shadow modImplementation("com.github.MatrixCreations:MatrixColorAPI:${project.matrix_color_api_version}")
 }
 
 processResources {
@@ -77,6 +78,13 @@ jar {
 	}
 }
 
+shadowJar {
+    archiveClassifier.set('shadow')
+    configurations = [project.configurations.shadow]
+    enableAutoRelocation = true
+    relocationPrefix = "me.e_chan.mod.simplecoordinatehud.shadow"
+}
+
 // configure the maven publication
 publishing {
 	publications {
@@ -93,4 +101,10 @@ publishing {
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
 	}
+}
+
+// remapJarタスクが、通常のjarではなくshadowJarを処理するように設定
+remapJar {
+    inputFile.set(shadowJar.archiveFile)
+    dependsOn(shadowJar)
 }
