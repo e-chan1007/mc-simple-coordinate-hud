@@ -52,11 +52,11 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 tasks.withType(KotlinCompile).configureEach {
-    it.compilerOptions.jvmTarget = JvmTarget.JVM_21
+    it.compilerOptions.jvmTarget = JvmTarget.JVM_17
 }
 
 java {
@@ -66,7 +66,7 @@ java {
 	withSourcesJar()
 
 	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
