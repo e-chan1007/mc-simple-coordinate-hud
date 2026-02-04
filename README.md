@@ -1,5 +1,5 @@
 # SimpleCoordinateHUD
-画面上に座標や方角などの情報を表示する、MinecraftのMOD(1.20.4/Fabric)です。
+画面上に座標や方角などの情報を表示する、MinecraftのMOD(1.21.10/Fabric)です。
 
 ## 設定
 設定画面は[Mod Menu](https://modrinth.com/mod/modmenu)から、またはホットキー(既定では[ ; ])を押すと開くことができます。
