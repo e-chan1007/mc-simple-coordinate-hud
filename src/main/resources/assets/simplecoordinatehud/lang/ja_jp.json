@@ -21,5 +21,8 @@
   "text.autoconfig.simplecoordinatehud.option.facingWest": "西",
   "text.autoconfig.simplecoordinatehud.option.facingNorth": "北",
   "text.autoconfig.simplecoordinatehud.option.facingEast": "東",
-  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat": "照準ブロックの座標"
+  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat": "照準ブロックの座標",
+  "text.autoconfig.simplecoordinatehud.option.playerCoordinateFormat.@Tooltip": "X座標: %1\u200C$f, Y座標: %2\u200C$f, Z座標: %3\u200C$f",
+  "text.autoconfig.simplecoordinatehud.option.facingFormat.@Tooltip": "向き: %1\u200C$s",
+  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat.@Tooltip": "X座標: %1\u200C$d, Y座標: %2\u200C$d, Z座標: %3\u200C$d, ブロック名: %4\u200C$s"
 }

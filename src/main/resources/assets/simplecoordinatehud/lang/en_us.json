@@ -21,5 +21,8 @@
   "text.autoconfig.simplecoordinatehud.option.facingWest": "West",
   "text.autoconfig.simplecoordinatehud.option.facingNorth": "North",
   "text.autoconfig.simplecoordinatehud.option.facingEast": "East",
-  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat": "Focusing Block Coordinate"
+  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat": "Focusing Block Coordinate",
+  "text.autoconfig.simplecoordinatehud.option.playerCoordinateFormat.@Tooltip": "X: %1\u200C$f, Y: %2\u200C$f, Z: %3\u200C$f",
+  "text.autoconfig.simplecoordinatehud.option.facingFormat.@Tooltip": "Facing: %%1$s",
+  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat.@Tooltip": "X: %1\u200Cd, Y: %2\u200C$d, Z: %3\u200C$d, Block Name: %4\u200C$s"
 }

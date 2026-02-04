@@ -1,15 +1,16 @@
 package me.e_chan.mod.simplecoordinatehud
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement
 import net.matrixcreations.libraries.MatrixColorAPI
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawContext
+import net.minecraft.client.render.RenderTickCounter
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.util.hit.BlockHitResult
 
-class HUDRender(private val client: MinecraftClient): HudRenderCallback {
+class HUDRender(private val client: MinecraftClient): HudElement {
     internal val WHITE = 0xFFFFFFFF.toInt()
-    override fun onHudRender(context: DrawContext, tickDelta: Float) {
+    override fun render(context: DrawContext, tickCounter: RenderTickCounter) {
         if (client.debugHud.shouldShowDebugHud()) return
         val player = client.player ?: return
 
