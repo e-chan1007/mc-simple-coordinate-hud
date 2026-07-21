@@ -1,13 +1,13 @@
 {
   "key.simplecoordinatehud.config": "設定画面を開く",
   "category.simplecoordinatehud": "Simple Coordinate HUD",
-  "simplecoordinatehud.defaultFormat.playerCoordinate": "座標: X=%1$s, Y=%2$s, Z=%3$s",
-  "simplecoordinatehud.defaultFormat.facing": "向き: %%1$s",
+  "simplecoordinatehud.defaultFormat.playerCoordinate": "座標: X=@1$.1f, Y=@2$.1f, Z=@3$.1f",
+  "simplecoordinatehud.defaultFormat.facing": "向き: @1$s",
   "simplecoordinatehud.defaultFormat.facing.south": "南 (Z+)",
   "simplecoordinatehud.defaultFormat.facing.west": "西 (X-)",
   "simplecoordinatehud.defaultFormat.facing.north": "北 (Z-)",
   "simplecoordinatehud.defaultFormat.facing.east": "東 (X+)",
-  "simplecoordinatehud.defaultFormat.blockCoordinate": "ブロック: X=%1$s, Y=%2$s, Z=%3$s (%4$s)",
+  "simplecoordinatehud.defaultFormat.blockCoordinate": "ブロック: X=@1$d, Y=@2$d, Z=@3$d (@4$s)",
   "simplecoordinatehud.formatError": "フォーマットが不正です。設定を確認してください。",
   "text.autoconfig.simplecoordinatehud.title": "設定",
   "text.autoconfig.simplecoordinatehud.category.0_toggle": "表示",
@@ -22,7 +22,7 @@
   "text.autoconfig.simplecoordinatehud.option.facingNorth": "北",
   "text.autoconfig.simplecoordinatehud.option.facingEast": "東",
   "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat": "照準ブロックの座標",
-  "text.autoconfig.simplecoordinatehud.option.playerCoordinateFormat.@Tooltip": "X座標: %1\u200C$f, Y座標: %2\u200C$f, Z座標: %3\u200C$f",
-  "text.autoconfig.simplecoordinatehud.option.facingFormat.@Tooltip": "向き: %1\u200C$s",
-  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat.@Tooltip": "X座標: %1\u200C$d, Y座標: %2\u200C$d, Z座標: %3\u200C$d, ブロック名: %4\u200C$s"
+  "text.autoconfig.simplecoordinatehud.option.playerCoordinateFormat.description": "X座標: %1\u200C$.1f, Y座標: %2\u200C$.1f, Z座標: %3\u200C$.1f",
+  "text.autoconfig.simplecoordinatehud.option.facingFormat.description": "向き: %1\u200C$s",
+  "text.autoconfig.simplecoordinatehud.option.targetBlockCoordinateFormat.description": "X座標: %1\u200C$d, Y座標: %2\u200C$d, Z座標: %3\u200C$d, ブロック名: %4\u200C$s"
 }
